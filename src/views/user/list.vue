@@ -40,7 +40,6 @@
         <template slot-scope="scope">
           <el-button type="danger" @click="del(scope.row.username)">删除</el-button>
           <el-button type="warning" @click="reset(scope.row.username)">重置密码</el-button>
-          <el-button type="primary" @click="handlePwdEdit(scope.row)">修改密码</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -64,7 +63,15 @@
         </el-form-item>
 
         <el-form-item label="用户角色" :label-width="formLabelWidth" prop="role">
-          <el-input v-model="form.role" autocomplete="off"></el-input>
+          <!-- <el-input v-model="form.role" autocomplete="off"></el-input> -->
+          <el-select v-model="form.role">
+            <el-option
+              v-for="item in rolelist"
+              :key="item.en"
+              :value="item.en"
+              :label="item.en"
+            ></el-option>
+          </el-select>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -108,6 +115,7 @@ import { fast } from "@/api/fast";
 export default {
   data() {
     return {
+      rolelist:[{en:'normal'},{en:'admin'}],
       listLoading: false,
       list: [],
       editShow: false,
@@ -121,7 +129,7 @@ export default {
         nickname: [
           { required: true, trigger: "blur", message: "请输入用户昵称" }
         ],
-        role: [{ required: true, trigger: "blur", message: "请输入用户角色" }]
+        role: [{ required: true, trigger: "blur", message: "请选择用户角色" }]
       },
       pwdRules: {
         psw: [{ required: true, trigger: "blur", message: "请输入新密码" }],

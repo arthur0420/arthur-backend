@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-dialog title="添加动物" top="10px" class="editDialog" :visible.sync="editShow" @closed="editAnimalOver(false)">
+    <el-dialog title="" top="10px" class="editDialog" :visible.sync="editShow" @closed="editAnimalOver(false)">
       <el-form :rules="rules" ref="formEdit" :model="form">
   
         <el-form-item label="百分比" :label-width="formLabelWidth" prop="offset">
@@ -8,7 +8,7 @@
         </el-form-item>
         
         <el-form-item label="跳过" :label-width="formLabelWidth" prop="skip_time">
-          <el-input v-model="form.skip_time" autocomplete="off"></el-input>
+          <el-input v-model="form.skip_time" autocomplete="off"></el-input>次
         </el-form-item>
 
 

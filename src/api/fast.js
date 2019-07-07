@@ -23,7 +23,8 @@ const urlConfig = {
   userDel:'1021',//删除用户
   userPwdChange:'1022',//修改密码
   getFeedList:'1023',//获取饲喂计划列表（元数据）
-  calibration:'2001' // 校准
+  calibration:'2001' ,// 校准
+  feedRecord:'1024'
 }
 
 export function fast(url,param) {

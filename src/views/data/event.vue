@@ -12,29 +12,48 @@
       border
       fit
       highlight-current-row
+      style="width:932px;display:inline-block;vertical-align:top;"
     >
       <el-table-column align="center" label="ID" width="80">
         <template slot-scope="scope">{{ scope.row.id }}</template>
       </el-table-column>
       
-      <el-table-column align="center" label="事件" width="180">
+      <el-table-column align="center" label="事件" width="150">
         <template slot-scope="scope">{{ constVal[(scope.row.event_no-1)]?constVal[(scope.row.event_no-1)].event_name:'-' }}</template>
       </el-table-column>
       
-      <el-table-column align="center" label="执行者" width="180">
+      <el-table-column align="center" label="执行者" width="150">
         <template slot-scope="scope">{{ scope.row.executor?scope.row.executor:'-' }}</template>
       </el-table-column>
       
-      <el-table-column align="center" label="公猪" width="180">
+      <el-table-column align="center" label="公猪" width="150">
         <template slot-scope="scope">{{ scope.row.boar?scope.row.boar:'-' }}</template>
       </el-table-column>
       
-      <el-table-column align="center" label="结果" width="580">
+      <el-table-column align="center" label="结果" width="400">
         <template slot-scope="scope">{{ scope.row.result?scope.row.result:'-' }}</template>
       </el-table-column>
-
     </el-table>
 
+     <el-table
+      ref="listTable2"
+      v-loading="listLoading"
+      element-loading-text="Loading"
+      :data="listFeed"
+      border
+      fit
+      highlight-current-row
+      style="width:302px;display:inline-block;vertical-align:top;margin-left:20px;"
+      
+    >
+      <el-table-column align="center" label="饲喂时间" width="150">
+        <template slot-scope="scope">{{ scope.row.timestr}}</template>
+      </el-table-column>
+      
+      <el-table-column align="center" label="饲喂量（g）" width="150">
+        <template slot-scope="scope">{{ scope.row.weight }}</template>
+      </el-table-column>
+    </el-table>
     <!--对话相关开始-->
     <!--添加事件-->
       <addEvent @addEventOver="addEventOver" :eventList="constVal" :id="listQuery.id" v-if="addEventShow">
@@ -56,6 +75,7 @@ export default {
   data() {
     return {
       list: [],
+      listFeed:[],
       constVal:eventDic,
       addEventShow: false,
       listQuery:{
@@ -79,6 +99,20 @@ export default {
         this.listLoading = false;
         this.list = res;
         res[0]&&this.getDay(res[0])
+      });
+      fast("feedRecord",{cellid: this.$route.query.id}).then(res => {
+        for(let i = 0 ; i< res.length; i++){
+          let one = res[i];
+          let td = new Date(one.time);
+          let year = td.getFullYear();
+          let mon =td.getMonth()+1;
+          let d = td.getDate();
+          let hh = td.getHours();
+          let min = td.getMinutes();
+          if(min <10)min = "0"+min;
+          one.timestr =  ""+year +"/"+mon+"/"+d+" "+hh+":"+min;
+        }
+        this.listFeed = res;
       });
     },
     addEventOver(e) {

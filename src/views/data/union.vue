@@ -46,7 +46,7 @@
       </el-table-column>
 
 
-    <el-table-column class-name="status-col" label="操作" width="400" align="center">
+    <el-table-column class-name="status-col" label="操作" width="150" align="center">
         <template slot-scope="scope">
           <el-tag @click.native="goPath(0,scope.row)">查看动物</el-tag>
         </template>

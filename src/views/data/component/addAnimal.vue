@@ -13,8 +13,8 @@
           <el-select v-if="pl[form.pl_no]" v-model="form.apId">
             <el-option
               v-for="item in pl[form.pl_no].sub"
-              :key="item.ap_no"
-              :value="item.ap_no"
+              :key="item.id"
+              :value="item.id"
               :label="item.ap_name"
             ></el-option>
           </el-select>

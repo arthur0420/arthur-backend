@@ -10,13 +10,13 @@
           
     <el-button type="primary" @click="add" style="margin:10px auto" class="submit">添加</el-button>
         <el-table ref="listTable" :data="list" border fit highlight-current-row style="height:64vh;overflow-y:scroll">
-          <el-table-column align="center" label="天数"  width="60">
+          <el-table-column align="center" label="天数"  width="80">
             <template slot-scope="scope">
                 <el-input v-if="scope.row.days!==0&&!scope.row.days" style="border:1px solid red" v-model="scope.row.days"></el-input>
                 <el-input v-else v-model="scope.row.days"></el-input>
             </template>
           </el-table-column>
-          <el-table-column align="center" v-for="(item,index) in hours" :label="index.toString()" :key="index" width="46">
+          <el-table-column align="center" v-for="(item,index) in hours" :label="index.toString()" :key="index" width="50">
             <template slot-scope="scope"><el-input class="dayNum" v-model="scope.row['h'+index]"></el-input></template>
           </el-table-column>
           <el-table-column align="center" label="操作"  width="120">
