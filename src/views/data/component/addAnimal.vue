@@ -20,6 +20,12 @@
           </el-select>
         </el-form-item>
 
+        <el-form-item label="饲喂计划" :label-width="formLabelWidth" prop="scheduleId">
+          <el-select v-model="form.scheduleId">
+            <el-option v-for="(item,index) in scheduleList" :key="index" :value="item.id" :label="item.name"></el-option>
+          </el-select>
+        </el-form-item>
+
         <el-form-item label="栏位编号" :label-width="formLabelWidth" prop="no">
           <el-input v-model="form.no" autocomplete="off"></el-input>
         </el-form-item>
@@ -56,10 +62,13 @@ export default {
         ],
         eventDate:[
           {required: true, trigger: "blur", message: "受精日期" }
-        ],
+        ],scheduleId:[
+          {required: true, trigger: "blur", message: "饲喂计划" }
+        ]
 
       },
-      pl: {}
+      pl: {},
+      scheduleList:[]
     };
   },
   props: ["list"],
@@ -71,6 +80,10 @@ export default {
       var list = this.list;
       
       this.pl = unionUnit(list);
+
+      fast("getFeedList",null).then(res=>{
+        this.scheduleList = res;
+      });
     },
     addAnimalOver(status) {
       this.$emit("addAnimalOver", status);

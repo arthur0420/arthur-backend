@@ -3,14 +3,13 @@
     <el-dialog title="" top="10px" class="editDialog" :visible.sync="editShow" @closed="editAnimalOver(false)">
       <el-form :rules="rules" ref="formEdit" :model="form">
   
+        <el-form-item label="跳过" :label-width="formLabelWidth" prop="skip_time">
+          <el-input size="small" v-model="form.skip_time" ></el-input> 
+        </el-form-item>
         <el-form-item label="百分比" :label-width="formLabelWidth" prop="offset">
-          <el-input v-model="form.offset" autocomplete="off"></el-input>
+          <el-input  v-model="form.offset" ></el-input>
         </el-form-item>
         
-        <el-form-item label="跳过" :label-width="formLabelWidth" prop="skip_time">
-          <el-input v-model="form.skip_time" autocomplete="off"></el-input>次
-        </el-form-item>
-
 
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -47,7 +46,28 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          fast("animalEdit", this.form).then(res => {
+          var skip = this.form.skip_time;
+          var offset = this.form.offset;
+          try{
+            skip = parseInt(skip);
+            if(skip<0)skip = 0;
+            if(isNaN(skip))skip = 0;
+          }catch(e){
+            skip = 0;
+          }
+          try{
+            offset = parseInt(offset);
+            if(isNaN(offset))offset = 0;
+          }catch(e){
+            offset = 0;
+          }
+          var rd = {
+            skip_time:skip,
+            offset:offset,
+            id:this.form.id,
+            switch:this.form.switch
+          }
+          fast("animalEdit", rd).then(res => {
             this.$message.success("提交成功！");
             this.editAnimalOver(true)
           });

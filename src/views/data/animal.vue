@@ -92,7 +92,13 @@ export default {
       });
     },
     edit(info) {
-      this.editShow = info
+      var nd = {
+       skip_time: info.skip_time,
+       offset:info.offset,
+       switch:info.switch,
+       id:info.id
+      }
+      this.editShow =nd;
     },
     editAnimalOver(e) {
       this.editShow = false
@@ -108,7 +114,8 @@ export default {
         type: "warning"
       })
         .then(() => {
-          fast("animalEdit", { id:info.id,switch: info.switch?0:1 }).then(res => {
+          let rd = { id:info.id,switch: info.switch?0:1,skip_time:info.skip_time,offset:info.offset }
+          fast("animalEdit", rd).then(res => {
             this.fetchData();
           });
         })

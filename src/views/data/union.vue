@@ -145,4 +145,7 @@ export default {
     line-height: 46px;
   }
 }
+input{
+  width:180px;
+}
 </style>
