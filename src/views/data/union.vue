@@ -31,7 +31,7 @@
       
       <el-table-column align="center" label="已增加" width="120">
         <template slot-scope="scope">{{ scope.row.addGross }}</template>
-      </el-table-column>
+      </el-table-column> 
 
       <el-table-column align="center" label="已减少" width="120">
         <template slot-scope="scope">{{ scope.row.minus }}</template>
@@ -41,7 +41,7 @@
         <template slot-scope="scope">{{ scope.row.unableFeed }}</template>
       </el-table-column>
       
-      <el-table-column align="center" label="当前进度" width="120">
+      <el-table-column align="center" label="当前进度(KG)" width="120">
         <template slot-scope="scope">{{ scope.row.fedGross }}/{{ scope.row.weightGross }} </template>
       </el-table-column>
 
@@ -97,6 +97,11 @@ export default {
       this.listLoading = true;
       fast("union",this.listQuery).then(res => {
         this.listLoading = false;
+        for(let i = 0 ; i<res.length;i++){
+          let one = res[i];
+          one.fedGross = one.fedGross/10;
+          one.weightGross = one.weightGross/10;
+        }
         this.list = res;
         var count = 0
         for (var i=0;i<res.length;i++) {

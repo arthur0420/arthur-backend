@@ -10,7 +10,7 @@
       highlight-current-row
     >
       <el-table-column align="center" label="栏内序号" width="80">
-        <template slot-scope="scope">{{ scope.row.id }}</template>
+        <template slot-scope="scope">{{ scope.row.no_in_apartment }}</template>
       </el-table-column>
       
       <el-table-column align="center" label="是否有动物" width="100">
@@ -26,7 +26,7 @@
       </el-table-column>
 
       <el-table-column align="center" label="已饲喂/总量（当日，千克）" width="280">
-        <template slot-scope="scope">{{ scope.row.fedPercent }}/{{ scope.row.wfwac }}</template>
+        <template slot-scope="scope">{{ scope.row.fed }}/{{ scope.row.wfwac }}</template>
       </el-table-column>
 
       <el-table-column align="center" label="跳过" width="80">
@@ -88,6 +88,11 @@ export default {
       this.listLoading = true;
       fast("animal",this.listQuery).then(res => {
         this.listLoading = false;
+        for(let i = 0 ; i<res.length;i++){
+          let one = res[i];
+          one.fed = (one.fedPercent * one.wfwac / 1000).toFixed(1);
+          one.wfwac =  one.wfwac/10;
+        }
         this.list = res;
       });
     },
