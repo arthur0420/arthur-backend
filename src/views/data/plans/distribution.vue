@@ -84,21 +84,28 @@ export default {
       for (var i=0;i<this.list.length;i++) {
           var item = this.list[i]
           if (item.schedule_id) {
-              delete this.list[i].schedule_id
+              delete this.list[i].schedule_id;
+          }
+          if(item.id){
+            delete this.list[i].id;
           }
           if (item.days!==0&&!item.days) {
               return false
           }
           var count = 0
-          for (var i=0;i<24;i++) {
-             count += parseInt(item['h'+i])
+          for (let j=0;j<24;j++) {
+             count += parseInt(item['h'+j])
          }
         if (count != 100) {
             return false
         }
       }
+      console.log(this.list);
        fast('feedHourEdit',{data:JSON.stringify(this.list),scheduleId:this.$route.query.id}).then(res=>{
-
+         this.$message({
+            type: "info",
+            message: "修改成功"
+          });
         })
     },
     total(data) {
