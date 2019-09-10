@@ -31,7 +31,7 @@
         </el-form-item>
 
         <el-form-item label="受精日期" :label-width="formLabelWidth" prop="eventDate">
-          <el-date-picker v-model="form.eventDate" type="date" value-format="yyyy-MM-dd HH:mm:ss" placeholder="受精日期"></el-date-picker>
+          <el-date-picker v-model="form.eventDate" type="date" value-format="yyyy-MM-dd HH:mm" placeholder="受精日期"></el-date-picker>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">

@@ -19,13 +19,13 @@
         </el-form-item>
 
         <el-form-item label="日期" :label-width="formLabelWidth" prop="eventDate">
-          <el-date-picker v-model="form.eventDate" type="date" value-format="yyyy-MM-dd HH:mm:ss" placeholder="日期"></el-date-picker>
+          <el-date-picker v-model="form.eventDate" type="date" value-format="yyyy-MM-dd HH:mm" placeholder="日期"></el-date-picker>
         </el-form-item>
 
         <el-form-item label="执行结果" :label-width="formLabelWidth" prop="result">
           <el-input v-model="form.result" autocomplete="off"></el-input>
         </el-form-item>
-
+        
         
         <el-form-item label="执行人" :label-width="formLabelWidth" prop="executor">
           <el-input v-model="form.executor" autocomplete="off"></el-input>
