@@ -12,6 +12,8 @@ module.exports = {
     proxyTable: {
       "/api": {
         target: "http://193.112.178.245:8080",
+        // target: "http://192.168.1.100:8080",
+        // target: "http://127.0.0.1:8080",
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''
@@ -91,3 +93,4 @@ module.exports = {
     generateAnalyzerReport: process.env.npm_config_generate_report || false
   }
 }
+
